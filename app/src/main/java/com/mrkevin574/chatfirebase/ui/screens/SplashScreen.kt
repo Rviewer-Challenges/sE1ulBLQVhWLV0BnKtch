@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -17,8 +18,9 @@ import com.mrkevin574.chatfirebase.ui.theme.Screens
 fun SplashScreen(navController: NavController) {
     ContentSplashScreen()
     val auth = FirebaseAuth.getInstance()
-    if(auth.currentUser == null) navController.navigate(Screens.LoginScreen.route)
-    else navController.navigate(Screens.MainScreen.route)
+    val value = auth.currentUser == null
+    if(value)  LaunchedEffect(value){navController.navigate(Screens.LoginScreen.route)}
+    else LaunchedEffect(value){navController.navigate(Screens.MainScreen.route)}
 }
 
 @Composable

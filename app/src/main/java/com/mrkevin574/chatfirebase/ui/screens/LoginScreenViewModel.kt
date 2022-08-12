@@ -7,7 +7,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginScreenViewModel @Inject constructor() : ViewModel() {
 
-    fun onEvent()
+    fun onEvent(onFinished : (Boolean) -> Unit)
     {
 
     }
