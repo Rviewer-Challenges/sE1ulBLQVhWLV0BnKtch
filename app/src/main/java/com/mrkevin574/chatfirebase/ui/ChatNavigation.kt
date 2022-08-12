@@ -12,7 +12,7 @@ import com.mrkevin574.chatfirebase.ui.screens.SplashScreen
 import com.mrkevin574.chatfirebase.ui.theme.Screens
 
 @Composable
-fun ChatNavigation(activity: Activity) {
+fun ChatNavigation() {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screens.SplashScreen.route )
@@ -27,7 +27,7 @@ fun ChatNavigation(activity: Activity) {
         }
         composable(Screens.LoginScreen.route)
         {
-            LoginScreen(navController = navController, activity = activity)
+            LoginScreen(navController = navController)
         }
         composable(Screens.ChatScreen.route)
         {

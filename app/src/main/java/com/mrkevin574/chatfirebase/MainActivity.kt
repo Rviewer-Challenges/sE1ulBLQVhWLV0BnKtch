@@ -24,9 +24,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    ChatNavigation(this@MainActivity)
+                    ChatNavigation()
                 }
             }
         }
     }
+
 }
