@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,16 +19,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.mrkevin574.chatfirebase.ui.theme.Screens
 import com.mrkevin574.chatfirebase.R
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryColor
 
 @Composable
-fun LoginScreen(navController : NavController, activity : Activity, viewModel: LoginScreenViewModel = hiltViewModel()) {
+fun LoginScreen(navController: NavController, viewModel : LoginScreenViewModel = hiltViewModel()) {
 
-    val isLoggedIn = viewModel.loginState.value
-
-    if(isLoggedIn) navController.navigate(Screens.MainScreen.route)
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            viewModel.onResult(result)
+        }
 
     Column(
         modifier = Modifier
@@ -38,7 +37,9 @@ fun LoginScreen(navController : NavController, activity : Activity, viewModel: L
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         WelcomeText()
-        ButtonGoogle { viewModel.onEvent(activity = activity) }
+        ButtonGoogle{
+            launcher.launch(viewModel.client.signInIntent)
+        }
     }
 }
 
@@ -53,7 +54,7 @@ fun WelcomeText() {
 }
 
 @Composable
-fun ButtonGoogle(onClick: () -> Unit) {
+fun ButtonGoogle(onClick : () -> Unit) {
     OutlinedButton(
         onClick = onClick,
         modifier = Modifier
