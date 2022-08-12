@@ -1,5 +1,8 @@
 package com.mrkevin574.chatfirebase.ui.screens
 
+import android.app.Activity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -21,7 +24,11 @@ import com.mrkevin574.chatfirebase.R
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryColor
 
 @Composable
-fun LoginScreen(navController: NavController, viewModel: LoginScreenViewModel = hiltViewModel()) {
+fun LoginScreen(navController : NavController, activity : Activity, viewModel: LoginScreenViewModel = hiltViewModel()) {
+
+    val isLoggedIn = viewModel.loginState.value
+
+    if(isLoggedIn) navController.navigate(Screens.MainScreen.route)
 
     Column(
         modifier = Modifier
@@ -31,11 +38,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginScreenViewModel = 
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         WelcomeText()
-        ButtonGoogle {
-            viewModel.onEvent { success -> // If the user successfully logged in
-                if (success) navController.navigate(Screens.MainScreen.route)
-            }
-        }
+        ButtonGoogle { viewModel.onEvent(activity = activity) }
     }
 }
 
@@ -72,7 +75,9 @@ fun ButtonGoogleContainer() {
         Image(
             painter = painterResource(id = R.drawable.google),
             contentDescription = stringResource(R.string.google_icon),
-            modifier = Modifier.width(30.dp).height(30.dp)
+            modifier = Modifier
+                .width(30.dp)
+                .height(30.dp)
         )
         Text(
             text = stringResource(com.firebase.ui.auth.R.string.fui_sign_in_with_google),
