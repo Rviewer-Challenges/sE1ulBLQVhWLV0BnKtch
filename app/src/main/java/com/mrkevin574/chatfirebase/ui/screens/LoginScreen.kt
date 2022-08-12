@@ -23,10 +23,12 @@ import com.mrkevin574.chatfirebase.R
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryColor
 
 @Composable
-fun LoginScreen(navController: NavController, viewModel : LoginScreenViewModel = hiltViewModel()) {
+fun LoginScreen(navController: NavController, viewModel: LoginScreenViewModel = hiltViewModel()) {
 
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            viewModel.onResult(result)
+    // Launcher for google login
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            viewModel.onResult(result, navController) // Viewmodel had control for result
         }
 
     Column(
@@ -37,7 +39,7 @@ fun LoginScreen(navController: NavController, viewModel : LoginScreenViewModel =
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         WelcomeText()
-        ButtonGoogle{
+        ButtonGoogle {
             launcher.launch(viewModel.client.signInIntent)
         }
     }
@@ -54,7 +56,7 @@ fun WelcomeText() {
 }
 
 @Composable
-fun ButtonGoogle(onClick : () -> Unit) {
+fun ButtonGoogle(onClick: () -> Unit) {
     OutlinedButton(
         onClick = onClick,
         modifier = Modifier
