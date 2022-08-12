@@ -1,6 +1,5 @@
 package com.mrkevin574.chatfirebase.ui
 
-import android.app.Activity
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
