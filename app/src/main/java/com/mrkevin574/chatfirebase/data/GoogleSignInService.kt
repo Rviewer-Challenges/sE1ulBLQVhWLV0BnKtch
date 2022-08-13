@@ -9,11 +9,13 @@ import com.google.android.gms.auth.api.identity.Identity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.mrkevin574.chatfirebase.R
+import com.mrkevin574.chatfirebase.data.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class GoogleSignInService @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val usersRepository: UsersRepository
 ) {
 
     private val TAG = "GoogleSignInService"
@@ -52,6 +54,12 @@ class GoogleSignInService @Inject constructor(
             FirebaseAuth.getInstance().signInWithCredential(firebaseCredential)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        usersRepository.saveUser(
+                            User(
+                                name = credential.displayName!!,
+                                uid = FirebaseAuth.getInstance().currentUser!!.uid
+                            )
+                        )
                         onFinalized(true)
                     } else {
                         onFinalized(false)
