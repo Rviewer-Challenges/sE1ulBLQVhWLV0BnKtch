@@ -5,7 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.mrkevin574.chatfirebase.ui.screens.ChatScreen
-import com.mrkevin574.chatfirebase.ui.screens.LoginScreen
+import com.mrkevin574.chatfirebase.ui.screens.login.LoginScreen
 import com.mrkevin574.chatfirebase.ui.screens.MainScreen
 import com.mrkevin574.chatfirebase.ui.screens.SplashScreen
 import com.mrkevin574.chatfirebase.ui.theme.Screens
