@@ -1,4 +1,4 @@
-package com.mrkevin574.chatfirebase.ui.data
+package com.mrkevin574.chatfirebase.data
 
 import android.content.Context
 import android.content.Intent
