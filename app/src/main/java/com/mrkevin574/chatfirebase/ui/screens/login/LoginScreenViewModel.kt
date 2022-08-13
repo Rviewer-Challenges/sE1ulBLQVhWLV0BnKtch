@@ -4,7 +4,7 @@ import android.content.IntentSender
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.mrkevin574.chatfirebase.ui.data.GoogleSignInService
+import com.mrkevin574.chatfirebase.data.GoogleSignInService
 import com.mrkevin574.chatfirebase.ui.theme.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
