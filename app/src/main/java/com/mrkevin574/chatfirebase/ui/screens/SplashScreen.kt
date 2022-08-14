@@ -12,7 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.mrkevin574.chatfirebase.R
-import com.mrkevin574.chatfirebase.ui.theme.Screens
 
 @Composable
 fun SplashScreen(navController: NavController) {
