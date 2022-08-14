@@ -1,8 +1,12 @@
 package com.mrkevin574.chatfirebase.ui.screens.main
 
+import androidx.compose.foundation.clickable
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.mrkevin574.chatfirebase.data.model.User
 import com.mrkevin574.chatfirebase.ui.screens.Screens
 
 @Composable
@@ -14,7 +18,7 @@ fun MainScreen(
 
     if(mainScreenState.success)
     {
-        ContainerMainScreen{ navController.navigate(Screens.ChatScreen.passId(it)) }
+        ContainerMainScreen(mainScreenState.usersList){ navController.navigate(Screens.ChatScreen.passId(it)) }
     }else{
         ContainerErrorMainScreen()
     }
@@ -22,8 +26,11 @@ fun MainScreen(
 }
 
 @Composable
-fun ContainerMainScreen(onClick : (uid : String) -> Unit) {
-
+fun ContainerMainScreen(userList : List<User>, onClick : (uid : String) -> Unit)
+{
+    userList.forEach {
+        Text(it.name, modifier = Modifier.clickable { onClick(it.uid) })
+    }
 }
 
 @Composable
