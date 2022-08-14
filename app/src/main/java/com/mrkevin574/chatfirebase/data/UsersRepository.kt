@@ -1,6 +1,8 @@
 package com.mrkevin574.chatfirebase.data
 
+import com.google.firebase.auth.FirebaseAuth
 import com.mrkevin574.chatfirebase.data.model.User
+import com.mrkevin574.chatfirebase.data.model.onResponse
 import javax.inject.Inject
 
 class UsersRepository @Inject constructor(
@@ -12,9 +14,16 @@ class UsersRepository @Inject constructor(
         provider.saveUser(user)
     }
 
-    fun getAllUsers(users : (List<User>) -> Unit)
+    fun getAllUsers(callback : (onResponse) -> Unit)
     {
-        provider.getAllUsers { users(it) }
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if(currentUser != null)
+        {
+            provider.getAllUsers(currentUser.uid) { callback(it) }
+        }else{
+            callback(onResponse(success = false, userList = emptyList()))
+        }
+
     }
 
 }
