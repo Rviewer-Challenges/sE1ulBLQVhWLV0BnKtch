@@ -15,8 +15,11 @@ class MainScreenViewModel @Inject constructor(
     private val _mainScreenState = mutableStateOf(MainScreenState())
     val mainScreenState : State<MainScreenState> = _mainScreenState
 
+    val loading = mutableStateOf(true)
+
     init {
         repository.getAllUsers { response ->
+            loading.value = false
             if(response.success)
             {
                 _mainScreenState.value = mainScreenState.value.copy(
