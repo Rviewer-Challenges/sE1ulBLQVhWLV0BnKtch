@@ -9,6 +9,8 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chat
+import androidx.compose.material.icons.filled.ChatBubble
+import androidx.compose.material.icons.filled.MarkChatUnread
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,11 +18,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mrkevin574.chatfirebase.data.model.User
 import com.mrkevin574.chatfirebase.ui.theme.ColorDivider
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryColor
@@ -28,11 +32,15 @@ import com.mrkevin574.chatfirebase.ui.theme.TextColorLastMessage
 import com.mrkevin574.chatfirebase.ui.theme.familyUbuntuCondensed
 
 @Composable
-fun CardUser(user : User, onClick : (uid : String) -> Unit) {
+fun CardUser(
+    user : User,
+    viewModel: MainScreenViewModel? = null,
+    onClick : (uid : String) -> Unit,
+    ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp)
+            .height(90.dp)
             .clickable { onClick(user.uid) },
         verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -45,10 +53,10 @@ fun CardUser(user : User, onClick : (uid : String) -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
-                imageVector = Icons.Filled.Chat,
+                imageVector = viewModel?.getIconByState() ?: Icons.Filled.Chat,
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(start = 40.dp)
+                    .padding(start = 20.dp)
                     .width(35.dp)
                     .height(35.dp),
                 colorFilter = ColorFilter.tint(PrimaryColor)
@@ -60,7 +68,7 @@ fun CardUser(user : User, onClick : (uid : String) -> Unit) {
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(1.dp)
+                .height(0.7.dp)
                 .padding(start = 50.dp, end = 50.dp),
             color = ColorDivider
         )
@@ -75,7 +83,7 @@ fun ContainerTextAndMessage(name : String, message : String)
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextNameUser(name = name)
-        TextLastMessageAndHour(value = message)
+        TextLastMessageAndHour(value = message, modifier = Modifier.padding(top = 7.dp))
     }
 }
 
@@ -101,7 +109,8 @@ fun ContainerHourAndMessagesNotReaded(
         TextLastMessageAndHour(hour)
         Text(
             text = countMessages.toString(),
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier
+                .size(20.dp)
                 .clip(CircleShape)
                 .background(Color.Red),
             textAlign = TextAlign.Center,
@@ -112,11 +121,12 @@ fun ContainerHourAndMessagesNotReaded(
 }
 
 @Composable
-fun TextLastMessageAndHour(value: String) {
+fun TextLastMessageAndHour(value: String, modifier: Modifier = Modifier) {
     Text(
         text = value,
         color = TextColorLastMessage,
-        fontSize = 14.sp
+        fontSize = 14.sp,
+        modifier = modifier
     )
 }
 
