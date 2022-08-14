@@ -3,7 +3,7 @@ package com.mrkevin574.chatfirebase.data
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.mrkevin574.chatfirebase.data.model.User
-import com.mrkevin574.chatfirebase.data.model.onResponse
+import com.mrkevin574.chatfirebase.data.model.UsersResponse
 import com.mrkevin574.chatfirebase.util.FIELD_UID
 import com.mrkevin574.chatfirebase.util.USER_COLLECTION
 import javax.inject.Inject
@@ -14,7 +14,7 @@ class UsersProvider @Inject constructor(
 
     fun saveUser(user : User) = db.collection(USER_COLLECTION).document().set(user)
 
-    fun getAllUsers(userId : String, callback : (onResponse) -> Unit) {
+    fun getAllUsers(userId : String, callback : (UsersResponse) -> Unit) {
         val userList = mutableListOf<User>()
         db.collection(USER_COLLECTION)
             .whereNotEqualTo(FIELD_UID, userId)
@@ -24,7 +24,7 @@ class UsersProvider @Inject constructor(
             users.forEach {
                 userList.add(it.toObject<User>()!!)
             }
-                callback(onResponse(success = true, userList = userList))
+                callback(UsersResponse(success = true, userList = userList))
         }
     }
 }
