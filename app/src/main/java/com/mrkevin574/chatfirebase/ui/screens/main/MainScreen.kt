@@ -1,6 +1,5 @@
 package com.mrkevin574.chatfirebase.ui.screens.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -24,7 +23,7 @@ fun MainScreen(
     if (loading) {
         Loading()
     } else if (mainScreenState.success) {
-        ContainerMainScreen(mainScreenState.usersList) {
+        ContainerMainScreen(mainScreenState.usersList, viewModel) {
             navController.navigate(Screens.ChatScreen.passId(it))
         }
     } else {
@@ -34,7 +33,7 @@ fun MainScreen(
 }
 
 @Composable
-fun ContainerMainScreen(userList: List<User>, onClick: (uid: String) -> Unit) {
+fun ContainerMainScreen(userList: List<User>, viewModel: MainScreenViewModel, onClick: (uid: String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -42,7 +41,7 @@ fun ContainerMainScreen(userList: List<User>, onClick: (uid: String) -> Unit) {
     )
     {
         userList.forEach {
-            CardUser(user = it, onClick = onClick)
+            CardUser(user = it, viewModel, onClick = onClick)
         }
     }
 

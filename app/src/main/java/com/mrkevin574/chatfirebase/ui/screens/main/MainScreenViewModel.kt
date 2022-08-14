@@ -1,7 +1,10 @@
 package com.mrkevin574.chatfirebase.ui.screens.main
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChatBubble
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import com.mrkevin574.chatfirebase.data.UsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,4 +36,7 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
+    fun getIconByState() : ImageVector{
+        return Icons.Filled.ChatBubble
+    }
 }
