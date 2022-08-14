@@ -6,3 +6,6 @@ val PrimaryColor = Color(0xfff57c00)
 val PrimaryDarkColor = Color(0xffbb4d00)
 val PrimaryLightColor = Color(0xffffad42)
 val SecondaryColor = Color(0xff6abf69)
+
+val ColorDivider = Color(0x36000000)
+val TextColorLastMessage = Color(0x74333333)

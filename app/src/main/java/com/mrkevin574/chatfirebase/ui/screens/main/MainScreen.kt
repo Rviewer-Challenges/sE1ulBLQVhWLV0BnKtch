@@ -1,5 +1,6 @@
 package com.mrkevin574.chatfirebase.ui.screens.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -34,9 +35,14 @@ fun MainScreen(
 
 @Composable
 fun ContainerMainScreen(userList: List<User>, onClick: (uid: String) -> Unit) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 10.dp)
+    )
+    {
         userList.forEach {
-            ContainerUser(user = it, onClick = onClick)
+            CardUser(user = it, onClick = onClick)
         }
     }
 
@@ -45,12 +51,13 @@ fun ContainerMainScreen(userList: List<User>, onClick: (uid: String) -> Unit) {
 @Composable
 fun Loading() {
     Box(
-      modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     )
     {
         CircularProgressIndicator(
-            modifier = Modifier.width(200.dp)
+            modifier = Modifier
+                .width(200.dp)
                 .height(200.dp),
             strokeWidth = 10.dp,
             color = PrimaryColor

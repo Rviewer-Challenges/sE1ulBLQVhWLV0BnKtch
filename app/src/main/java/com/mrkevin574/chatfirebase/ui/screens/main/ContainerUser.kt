@@ -1,10 +1,129 @@
 package com.mrkevin574.chatfirebase.ui.screens.main
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Chat
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.mrkevin574.chatfirebase.data.model.User
+import com.mrkevin574.chatfirebase.ui.theme.ColorDivider
+import com.mrkevin574.chatfirebase.ui.theme.PrimaryColor
+import com.mrkevin574.chatfirebase.ui.theme.TextColorLastMessage
+import com.mrkevin574.chatfirebase.ui.theme.familyUbuntuCondensed
 
 @Composable
-fun ContainerUser(user : User, onClick : (uid : String) -> Unit) {
-    Text(user.uid)
+fun CardUser(user : User, onClick : (uid : String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(80.dp)
+            .clickable { onClick(user.uid) },
+        verticalArrangement = Arrangement.SpaceAround,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 25.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Image(
+                imageVector = Icons.Filled.Chat,
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(start = 40.dp)
+                    .width(35.dp)
+                    .height(35.dp),
+                colorFilter = ColorFilter.tint(PrimaryColor)
+            )
+            ContainerTextAndMessage(name = user.name, message = "HOla como estas?")
+            ContainerHourAndMessagesNotReaded(hour = "12:20", countMessages = 5)
+        }
+        Divider(Modifier.height(10.dp), color = Color.Transparent)
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .padding(start = 50.dp, end = 50.dp),
+            color = ColorDivider
+        )
+    }
+
+}
+
+@Composable
+fun ContainerTextAndMessage(name : String, message : String)
+{
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TextNameUser(name = name)
+        TextLastMessageAndHour(value = message)
+    }
+}
+
+@Composable
+fun TextNameUser(name : String) {
+    Text(
+        text = name,
+        fontFamily = familyUbuntuCondensed,
+        fontSize = 22.sp,
+        textAlign = TextAlign.Center,
+        color = Color.Black
+    )
+}
+
+@Composable
+fun ContainerHourAndMessagesNotReaded(
+    hour : String, countMessages : Int
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(end = 20.dp)
+    ) {
+        TextLastMessageAndHour(hour)
+        Text(
+            text = countMessages.toString(),
+            modifier = Modifier.size(20.dp)
+                .clip(CircleShape)
+                .background(Color.Red),
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            fontWeight = FontWeight.ExtraBold
+        )
+    }
+}
+
+@Composable
+fun TextLastMessageAndHour(value: String) {
+    Text(
+        text = value,
+        color = TextColorLastMessage,
+        fontSize = 14.sp
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ContainerUserPreview() {
+    CardUser(user = User(
+        name = "Puchica"
+    ), onClick = {})
 }
