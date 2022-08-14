@@ -4,11 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mrkevin574.chatfirebase.ui.screens.PARAMETER_RECEIVER_ID
 import com.mrkevin574.chatfirebase.ui.screens.chat.ChatScreen
 import com.mrkevin574.chatfirebase.ui.screens.login.LoginScreen
 import com.mrkevin574.chatfirebase.ui.screens.main.MainScreen
 import com.mrkevin574.chatfirebase.ui.screens.SplashScreen
-import com.mrkevin574.chatfirebase.ui.theme.Screens
+import com.mrkevin574.chatfirebase.ui.screens.Screens
 
 @Composable
 fun ChatNavigation() {
@@ -29,8 +30,10 @@ fun ChatNavigation() {
             LoginScreen(navController = navController)
         }
         composable(Screens.ChatScreen.route)
-        {
-            ChatScreen(navController = navController)
+        { backStackEntry ->
+            backStackEntry.arguments?.getString(PARAMETER_RECEIVER_ID)?.let { uid ->
+                ChatScreen(navController = navController, uid)
+            }
         }
     }
 }
