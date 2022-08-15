@@ -86,4 +86,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     //Firebase Firestore
     implementation 'com.google.firebase:firebase-firestore-ktx'
+    //Firebase Realtime Database
+    implementation 'com.google.firebase:firebase-database-ktx'
+
 }
