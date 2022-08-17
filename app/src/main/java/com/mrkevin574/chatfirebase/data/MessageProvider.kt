@@ -27,6 +27,11 @@ class MessageProvider @Inject constructor(
         })
     }
 
+    fun sendMessage(localUserId: String, userReceiverId: String)
+    {
+        val ref = db.getReference(getUniqueIdConversation(localUserId, userReceiverId))
+    }
+
     private fun getUniqueIdConversation(userId1 : String, userId2 : String) : String
     {
         val usersIdList = listOf(userId1, userId2).sorted()
