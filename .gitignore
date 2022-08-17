@@ -13,3 +13,13 @@
 .externalNativeBuild
 .cxx
 local.properties
+.firebaserc
+database-debug.log
+database.rules.json
+firebase.json
+firestore-debug.log
+firestore.indexes.json
+firestore.rules
+functions/
+ui-debug.log
+
