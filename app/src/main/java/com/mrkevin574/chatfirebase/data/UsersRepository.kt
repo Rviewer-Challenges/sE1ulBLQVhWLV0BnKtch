@@ -21,9 +21,14 @@ class UsersRepository @Inject constructor(
         if(currentUser != null)
         {
             userProvider.getAllUsers(currentUser.uid) { userResponse ->
-                userResponse.userList.map {
-                    it.messages = messageProvider.getMessagesByIdForCurrentUser(it.uid, currentUser.uid)
+                val usersList = mutableListOf<User>()
+                userResponse.userList.map { user ->
+                    messageProvider.getMessagesByIdForCurrentUser(user.uid, currentUser.uid){ messages ->
+                        user.messages = messages
+                    }
+                    usersList.add(user)
                 }
+                userResponse.userList = usersList
                 callback(userResponse)
             }
         }else{
