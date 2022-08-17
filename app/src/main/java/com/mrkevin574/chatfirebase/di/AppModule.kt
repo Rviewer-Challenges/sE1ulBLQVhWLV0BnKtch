@@ -17,5 +17,5 @@ object AppModule {
     fun provideFirestore() = Firebase.firestore
 
     @Provides
-    fun provideRealtimeDatabase() = Firebase.database.useEmulator("localhost",4400)
+    fun provideRealtimeDatabase() = Firebase.database.useEmulator("localhost",4000)
 }
