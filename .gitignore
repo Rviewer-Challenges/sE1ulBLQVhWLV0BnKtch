@@ -22,4 +22,4 @@ firestore.indexes.json
 firestore.rules
 functions/
 ui-debug.log
-
+firebase-debug.log
