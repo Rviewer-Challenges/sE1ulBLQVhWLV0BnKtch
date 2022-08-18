@@ -25,11 +25,11 @@ class UsersRepository @Inject constructor(
                 userResponse.userList.map { user ->
                     messageProvider.getMessagesByIdForCurrentUser(user.uid, currentUser.uid){ messages ->
                         user.messages = messages
+                        usersList.add(user)
+                        callback(userResponse)
                     }
-                    usersList.add(user)
                 }
-                userResponse.userList = usersList
-                callback(userResponse)
+
             }
         }else{
             callback(UsersResponse(success = false, userList = emptyList()))

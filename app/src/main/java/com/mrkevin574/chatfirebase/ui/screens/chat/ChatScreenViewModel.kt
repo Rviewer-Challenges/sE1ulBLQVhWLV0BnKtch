@@ -17,7 +17,8 @@ class ChatScreenViewModel @Inject constructor(
     {
         val message = Message(
             value = value,
-            hour = Date().time
+            hour = Date().time,
+            viewed = false
         )
         provider.sendMessage(
             localUserId = FirebaseAuth.getInstance().currentUser!!.uid,

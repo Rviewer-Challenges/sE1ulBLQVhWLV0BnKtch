@@ -37,6 +37,7 @@ fun CardUser(
     viewModel: MainScreenViewModel? = null,
     onClick : (uid : String) -> Unit,
     ) {
+    val pendingMessages = viewModel!!.getLastMessageAndPendingMessages(user.messages)
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -61,8 +62,8 @@ fun CardUser(
                     .height(35.dp),
                 colorFilter = ColorFilter.tint(PrimaryColor)
             )
-            ContainerTextAndMessage(name = user.name, message = "HOla como estas?")
-            ContainerHourAndMessagesNotReaded(hour = "12:20", countMessages = 5)
+            ContainerTextAndMessage(name = user.name, message = pendingMessages.lastMessage)
+            ContainerHourAndMessagesNotReaded(hour = pendingMessages.hourLastMessage, countMessages = pendingMessages.countPending)
         }
         Divider(Modifier.height(10.dp), color = Color.Transparent)
         Divider(
@@ -107,12 +108,13 @@ fun ContainerHourAndMessagesNotReaded(
         modifier = Modifier.padding(end = 20.dp)
     ) {
         TextLastMessageAndHour(hour)
+        if(countMessages > 0)
         Text(
             text = countMessages.toString(),
             modifier = Modifier
-                .size(20.dp)
                 .clip(CircleShape)
-                .background(Color.Red),
+                .background(Color.Red)
+                .padding(4.dp),
             textAlign = TextAlign.Center,
             color = Color.White,
             fontWeight = FontWeight.ExtraBold
