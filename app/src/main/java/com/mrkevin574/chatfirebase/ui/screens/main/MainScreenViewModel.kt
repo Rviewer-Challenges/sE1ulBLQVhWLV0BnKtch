@@ -6,6 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.mrkevin574.chatfirebase.data.UsersRepository
 import com.mrkevin574.chatfirebase.data.model.Message
 import com.mrkevin574.chatfirebase.data.model.PendingMessages
@@ -58,7 +59,7 @@ class MainScreenViewModel @Inject constructor(
     fun getLastMessageAndPendingMessages(messages : List<Message>) :  PendingMessages
     {
         if(messages.isEmpty()) return PendingMessages()
-        val pendingMessages = messages.filter { !it.viewed }
+        val pendingMessages = messages.filter { !it.viewed && it.ownerId != FirebaseAuth.getInstance().currentUser!!.uid }
         val lastMessage = messages.last()
 
         val hourLastMessage = Date(lastMessage.hour)
