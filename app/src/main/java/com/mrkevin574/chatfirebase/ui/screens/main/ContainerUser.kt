@@ -9,22 +9,20 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chat
-import androidx.compose.material.icons.filled.ChatBubble
 import androidx.compose.material.icons.filled.MarkChatUnread
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.mrkevin574.chatfirebase.R
 import com.mrkevin574.chatfirebase.data.model.User
 import com.mrkevin574.chatfirebase.ui.theme.ColorDivider
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryColor
@@ -85,7 +83,7 @@ fun ContainerTextAndMessage(name : String, message : String)
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextNameUser(name = name)
-        TextLastMessageAndHour(value = message, modifier = Modifier.padding(top = 7.dp))
+        TextLastMessage(value = message, modifier = Modifier.padding(top = 7.dp))
     }
 }
 
@@ -108,7 +106,7 @@ fun ContainerHourAndMessagesNotReaded(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(end = 20.dp)
     ) {
-        TextLastMessageAndHour(hour)
+        TextHourLastMessage(hour)
         if(countMessages > 0)
         Text(
             text = countMessages.toString(),
@@ -124,9 +122,19 @@ fun ContainerHourAndMessagesNotReaded(
 }
 
 @Composable
-fun TextLastMessageAndHour(value: String, modifier: Modifier = Modifier) {
+fun TextLastMessage(value: String, modifier: Modifier = Modifier) {
     Text(
-        text = value,
+        text = value.ifEmpty { stringResource(R.string.sent_a_message) },
+        color = TextColorLastMessage,
+        fontSize = 14.sp,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun TextHourLastMessage(value: String, modifier: Modifier = Modifier) {
+    Text(
+        text = value.ifEmpty { stringResource(R.string.sent_a_message) },
         color = TextColorLastMessage,
         fontSize = 14.sp,
         modifier = modifier

@@ -56,12 +56,21 @@ class MainScreenViewModel @Inject constructor(
         val pendingMessages = messages.filter { !it.viewed && it.ownerId != FirebaseAuth.getInstance().currentUser!!.uid }
         val lastMessage = messages.last()
 
-        val hourLastMessage = Date(lastMessage.hour)
+
 
         return PendingMessages(
             lastMessage = lastMessage.value,
-            hourLastMessage = hourLastMessage.toString(),
+            hourLastMessage = getTimeAgo(lastMessage.hour),
             countPending = pendingMessages.count())
     }
 
+}
+
+fun getTimeAgo(time : Long) : String
+{
+    val timeAgo = (Date().time - time) / 1000
+    return if(timeAgo < 60) return "now"
+    else if(timeAgo in 61..3599) return "${timeAgo/60} mins"
+    else if(timeAgo in 3600..86399) return "${(timeAgo/60)/60} hours"
+    else  "${((timeAgo/60)/60)/60} days"
 }
