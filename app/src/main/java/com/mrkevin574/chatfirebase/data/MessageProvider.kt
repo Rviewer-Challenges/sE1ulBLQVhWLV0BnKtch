@@ -1,35 +1,41 @@
 package com.mrkevin574.chatfirebase.data
 
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import android.util.Log
+import com.google.firebase.database.*
 import com.mrkevin574.chatfirebase.data.model.Message
-import com.mrkevin574.chatfirebase.util.CONST_MESSAGES
-import com.mrkevin574.chatfirebase.util.USER_COLLECTION
 import javax.inject.Inject
 
 class MessageProvider @Inject constructor(
-    private val db : FirebaseDatabase
+    private val database : DatabaseReference
 ) {
+
+    private val TAG = "MessageProvider"
+    private val CHILD_MESSAGES = "MESSAGES"
+
     fun getMessagesByIdForCurrentUser(localUserId : String, userReceiverId : String, callback : (List<Message>) -> Unit)
     {
-        val ref = db.getReference(getUniqueIdConversation(localUserId, userReceiverId))
-        ref.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-              //  callback()
+        val messages = mutableListOf<Message>()
+        val ref = database.child(CHILD_MESSAGES).child(getUniqueIdConversation(localUserId, userReceiverId))
+        ref.get().addOnSuccessListener { dataSnapshot ->
+            dataSnapshot.children.forEach{ childrenSnapshot ->
+                messages.add(childrenSnapshot.getValue(Message::class.java)!!)
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
+            callback(messages)
+        }
     }
 
-    fun sendMessage(localUserId: String, userReceiverId: String)
+    fun sendMessage(localUserId: String, userReceiverId: String, message : Message)
     {
-        val ref = db.getReference(getUniqueIdConversation(localUserId, userReceiverId))
+        database
+            .child(CHILD_MESSAGES)
+            .child(getUniqueIdConversation(localUserId, userReceiverId))
+            .push()
+            .setValue(message)
+            .addOnSuccessListener {
+                Log.w(TAG, "Messaged Send")
+            }.addOnFailureListener {
+                Log.w(TAG, "Failed")
+            }
     }
 
     private fun getUniqueIdConversation(userId1 : String, userId2 : String) : String
