@@ -24,7 +24,7 @@ fun MainScreen(
         Loading()
     } else if (mainScreenState.success) {
         ContainerMainScreen(mainScreenState.usersList, viewModel) {
-            navController.navigate(Screens.ChatScreen.passId(it))
+            navController.navigate(Screens.ChatScreen.passIdAndName(it.first, it.second))
         }
     } else {
         ContainerErrorMainScreen()
@@ -33,15 +33,15 @@ fun MainScreen(
 }
 
 @Composable
-fun ContainerMainScreen(userList: List<User>, viewModel: MainScreenViewModel, onClick: (uid: String) -> Unit) {
+fun ContainerMainScreen(userList: List<User>, viewModel: MainScreenViewModel, onClick: (Pair<String, String>) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 10.dp)
     )
     {
-        userList.forEach {
-            CardUser(user = it, viewModel, onClick = onClick)
+        userList.forEach { user ->
+            CardUser(user = user, viewModel, onClick = {onClick(Pair(user.uid, user.name))})
         }
     }
 
