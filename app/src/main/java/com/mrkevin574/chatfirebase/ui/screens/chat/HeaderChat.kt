@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryColor
 
 @Composable
-fun HeaderChat(name : String, onClickBack : () -> Unit) {
+fun HeaderChat(name : String, modifier: Modifier, onClickBack : () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

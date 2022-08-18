@@ -63,6 +63,9 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
+    //Constraint layout compose
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+
     //Hilt and navigation
     implementation "com.google.dagger:hilt-android:2.42"
     kapt "com.google.dagger:hilt-android-compiler:2.42"

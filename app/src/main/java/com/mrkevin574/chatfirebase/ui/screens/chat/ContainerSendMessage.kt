@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryColor
 
 @Composable
-fun ContainerSendMessage(text: MutableState<String>, sendMessage: () -> Unit) {
+fun ContainerSendMessage(text: MutableState<String>, modifier: Modifier, sendMessage: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
             .padding(end = 10.dp)
             .height(60.dp),
         verticalAlignment = Alignment.CenterVertically
