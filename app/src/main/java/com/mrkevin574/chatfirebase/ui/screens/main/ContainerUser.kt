@@ -38,6 +38,7 @@ fun CardUser(
     onClick : (uid : String) -> Unit,
     ) {
     val pendingMessages = viewModel!!.getLastMessageAndPendingMessages(user.messages)
+    val countPendingMessages = pendingMessages.countPending
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,7 +55,7 @@ fun CardUser(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
-                imageVector = viewModel?.getIconByState() ?: Icons.Filled.Chat,
+                imageVector = if(countPendingMessages > 0) Icons.Filled.ChatBubble else Icons.Filled.Chat,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(start = 20.dp)
@@ -63,7 +64,7 @@ fun CardUser(
                 colorFilter = ColorFilter.tint(PrimaryColor)
             )
             ContainerTextAndMessage(name = user.name, message = pendingMessages.lastMessage)
-            ContainerHourAndMessagesNotReaded(hour = pendingMessages.hourLastMessage, countMessages = pendingMessages.countPending)
+            ContainerHourAndMessagesNotReaded(hour = pendingMessages.hourLastMessage, countMessages = countPendingMessages)
         }
         Divider(Modifier.height(10.dp), color = Color.Transparent)
         Divider(

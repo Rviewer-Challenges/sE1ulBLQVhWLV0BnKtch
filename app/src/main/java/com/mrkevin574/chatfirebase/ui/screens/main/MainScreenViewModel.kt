@@ -52,9 +52,6 @@ class MainScreenViewModel @Inject constructor(
         return listReversed.toList()
     }
 
-    fun getIconByState() : ImageVector{
-        return Icons.Filled.ChatBubble
-    }
 
     fun getLastMessageAndPendingMessages(messages : List<Message>) :  PendingMessages
     {
