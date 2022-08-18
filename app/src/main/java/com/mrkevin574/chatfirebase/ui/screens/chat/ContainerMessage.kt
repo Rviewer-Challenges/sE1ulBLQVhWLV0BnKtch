@@ -16,6 +16,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mrkevin574.chatfirebase.data.model.Message
+import com.mrkevin574.chatfirebase.ui.screens.main.getTimeAgo
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryLightColor
 import com.mrkevin574.chatfirebase.ui.theme.SecondaryColor
 import com.mrkevin574.chatfirebase.ui.theme.TextColorLastMessage
@@ -52,9 +53,8 @@ fun ContainerMessage(localUid: String, message: Message, onRead: (Message) -> Un
                 modifier = Modifier
                     .padding(top = 10.dp, end = 20.dp, start = 20.dp, bottom = 2.dp)
             )
-            val dateString = Date(message.hour).toString()
             Text(
-                text = dateString.removeRange(dateString.length - 13, dateString.length - 1),
+                text = getTimeAgo(message.hour),
                 fontSize = 12.sp,
                 textAlign = TextAlign.End,
                 color = TextColorLastMessage,
