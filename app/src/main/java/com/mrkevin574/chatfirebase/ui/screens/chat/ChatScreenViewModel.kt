@@ -23,7 +23,8 @@ class ChatScreenViewModel @Inject constructor(
         val message = Message(
             value = value,
             hour = Date().time,
-            viewed = false
+            viewed = false,
+            ownerId = getUserId()
         )
         provider.sendMessage(
             localUserId = getUserId(),
