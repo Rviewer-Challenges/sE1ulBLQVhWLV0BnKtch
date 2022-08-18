@@ -14,14 +14,21 @@ class MessageProvider @Inject constructor(
 
     fun getMessagesByIdForCurrentUser(localUserId : String, userReceiverId : String, callback : (List<Message>) -> Unit)
     {
-        val messages = mutableListOf<Message>()
         val ref = database.child(CHILD_MESSAGES).child(getUniqueIdConversation(localUserId, userReceiverId))
-        ref.get().addOnSuccessListener { dataSnapshot ->
-            dataSnapshot.children.forEach{ childrenSnapshot ->
-                messages.add(childrenSnapshot.getValue(Message::class.java)!!)
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val messages = mutableListOf<Message>()
+                snapshot.children.forEach{ childrenSnapshot ->
+                    messages.add(childrenSnapshot.getValue(Message::class.java)!!)
+                }
+                callback(messages)
             }
-            callback(messages)
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
     fun sendMessage(localUserId: String, userReceiverId: String, message : Message)
