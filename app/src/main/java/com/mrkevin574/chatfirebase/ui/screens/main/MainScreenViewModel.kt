@@ -1,10 +1,7 @@
 package com.mrkevin574.chatfirebase.ui.screens.main
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChatBubble
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.mrkevin574.chatfirebase.data.UsersRepository
@@ -17,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
-    private val repository : UsersRepository
+    repository : UsersRepository
 ): ViewModel() {
 
     private val _mainScreenState = mutableStateOf(MainScreenState())

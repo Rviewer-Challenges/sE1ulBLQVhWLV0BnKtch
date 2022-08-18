@@ -6,22 +6,23 @@ import com.mrkevin574.chatfirebase.data.model.Message
 import javax.inject.Inject
 
 class MessageProvider @Inject constructor(
-    private val database : DatabaseReference
+    private val database: DatabaseReference
 ) {
 
     private val TAG = "MessageProvider"
     private val CHILD_MESSAGES = "MESSAGES"
 
-
-
-
-    fun getMessagesByIdForCurrentUser(localUserId : String, userReceiverId : String, callback : (List<Message>) -> Unit)
-    {
-        val ref = database.child(CHILD_MESSAGES).child(getUniqueIdConversation(localUserId, userReceiverId))
+    fun getMessagesByIdForCurrentUser(
+        localUserId: String,
+        userReceiverId: String,
+        callback: (List<Message>) -> Unit
+    ) {
+        val ref = database.child(CHILD_MESSAGES)
+            .child(getUniqueIdConversation(localUserId, userReceiverId))
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val messages = mutableListOf<Message>()
-                snapshot.children.forEach{ childrenSnapshot ->
+                snapshot.children.forEach { childrenSnapshot ->
                     messages.add(childrenSnapshot.getValue(Message::class.java)!!)
                 }
                 callback(messages)
@@ -34,30 +35,21 @@ class MessageProvider @Inject constructor(
         })
     }
 
-    fun makeMessagesRead(localUserId: String, userReceiverId: String, messages : List<Message>)
-    {
-        messages.map {
-            if(it.ownerId != localUserId && !it.viewed)
-            {
-                it.viewed = true
-                database.child(CHILD_MESSAGES)
-                    .child(getUniqueIdConversation(localUserId, userReceiverId))
-                    .child(it.key)
-                    .setValue(it)
-            }
-        }
-
+    fun makeMessagesRead(localUserId: String, userReceiverId: String, message: Message) {
+            message.viewed = true
+            database.child(CHILD_MESSAGES)
+                .child(getUniqueIdConversation(localUserId, userReceiverId))
+                .child(message.key)
+                .setValue(message)
     }
 
-    fun sendMessage(localUserId: String, userReceiverId: String, message : Message)
-    {
+    fun sendMessage(localUserId: String, userReceiverId: String, message: Message) {
         val key = database
             .child(CHILD_MESSAGES)
             .child(getUniqueIdConversation(localUserId, userReceiverId))
             .push()
 
-        if(key.key != null)
-        {
+        if (key.key != null) {
             message.key = key.key!!
             key.setValue(message)
                 .addOnSuccessListener {
@@ -70,8 +62,7 @@ class MessageProvider @Inject constructor(
 
     }
 
-    private fun getUniqueIdConversation(userId1 : String, userId2 : String) : String
-    {
+    private fun getUniqueIdConversation(userId1: String, userId2: String): String {
         val usersIdList = listOf(userId1, userId2).sorted()
         return "${usersIdList[0]}_${usersIdList[0]}"
     }
