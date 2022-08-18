@@ -41,4 +41,9 @@ class ChatScreenViewModel @Inject constructor(
         }
     }
 
+    fun makeMessageView(userReceiverId : String)
+    {
+        provider.makeMessagesRead(getUserId(), userReceiverId = userReceiverId, messages.value)
+    }
+
 }

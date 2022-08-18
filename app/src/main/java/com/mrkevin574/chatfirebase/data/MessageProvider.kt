@@ -12,6 +12,9 @@ class MessageProvider @Inject constructor(
     private val TAG = "MessageProvider"
     private val CHILD_MESSAGES = "MESSAGES"
 
+
+
+
     fun getMessagesByIdForCurrentUser(localUserId : String, userReceiverId : String, callback : (List<Message>) -> Unit)
     {
         val ref = database.child(CHILD_MESSAGES).child(getUniqueIdConversation(localUserId, userReceiverId))
@@ -31,18 +34,40 @@ class MessageProvider @Inject constructor(
         })
     }
 
+    fun makeMessagesRead(localUserId: String, userReceiverId: String, messages : List<Message>)
+    {
+        messages.map {
+            if(it.ownerId != localUserId && !it.viewed)
+            {
+                it.viewed = true
+                database.child(CHILD_MESSAGES)
+                    .child(getUniqueIdConversation(localUserId, userReceiverId))
+                    .child(it.key)
+                    .setValue(it)
+            }
+        }
+
+    }
+
     fun sendMessage(localUserId: String, userReceiverId: String, message : Message)
     {
-        database
+        val key = database
             .child(CHILD_MESSAGES)
             .child(getUniqueIdConversation(localUserId, userReceiverId))
             .push()
-            .setValue(message)
-            .addOnSuccessListener {
-                Log.w(TAG, "Messaged Send")
-            }.addOnFailureListener {
-                Log.w(TAG, "Failed")
-            }
+
+        if(key.key != null)
+        {
+            message.key = key.key!!
+            key.setValue(message)
+                .addOnSuccessListener {
+                    Log.w(TAG, "Messaged Send")
+                }.addOnFailureListener {
+                    Log.w(TAG, "Failed")
+                }
+        }
+
+
     }
 
     private fun getUniqueIdConversation(userId1 : String, userId2 : String) : String

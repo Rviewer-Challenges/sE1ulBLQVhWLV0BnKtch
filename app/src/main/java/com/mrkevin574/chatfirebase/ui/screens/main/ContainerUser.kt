@@ -55,7 +55,7 @@ fun CardUser(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
-                imageVector = if(countPendingMessages > 0) Icons.Filled.ChatBubble else Icons.Filled.Chat,
+                imageVector = if(countPendingMessages > 0) Icons.Filled.MarkChatUnread else Icons.Filled.Chat,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(start = 20.dp)

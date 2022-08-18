@@ -24,6 +24,7 @@ fun ChatScreen(
     viewModel.getMessagesById(receiverId)
     val messages = viewModel.messages.value
     val text = remember {mutableStateOf("")}
+    viewModel.makeMessageView(userReceiverId = receiverId)
 
     Column(modifier = Modifier.fillMaxSize(),
     verticalArrangement = Arrangement.SpaceBetween) {
