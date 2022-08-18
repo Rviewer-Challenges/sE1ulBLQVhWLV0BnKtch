@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,12 +38,12 @@ fun ContainerMessage(localUid: String, message: Message, onRead: (Message) -> Un
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(end = 30.dp, start = 30.dp),
+            .padding(end = 30.dp, start = 30.dp, top = 10.dp),
         contentAlignment = alignmentMessage
     ) {
         Column(
             modifier = Modifier
-                .clip(CircleShape)
+                .clip(RoundedCornerShape(20))
                 .background(messageColor)
         )
         {
