@@ -22,8 +22,15 @@ import com.mrkevin574.chatfirebase.ui.theme.TextColorLastMessage
 import java.util.*
 
 @Composable
-fun ContainerMessage(localUid: String, message: Message) {
-    val messageColor = if (message.ownerId == localUid) SecondaryColor else PrimaryLightColor
+fun ContainerMessage(localUid: String, message: Message, onRead: (Message) -> Unit) {
+    val messageColor = if (message.ownerId == localUid){
+        SecondaryColor
+    } else {
+        if(!message.viewed){
+            onRead(message)
+        }
+        PrimaryLightColor
+    }
     val alignmentMessage =
         if (message.ownerId == localUid) Alignment.CenterEnd else Alignment.CenterStart
     Box(
