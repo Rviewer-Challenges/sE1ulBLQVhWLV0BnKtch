@@ -18,30 +18,17 @@ import java.util.*
 
 @Composable
 fun SplashScreen(
-    navController: NavController,
-    viewModel: SplashViewModel = hiltViewModel()
+    navController: NavController
 ) {
     ContentSplashScreen()
-    LaunchedEffect(key1 = "1"){
-        viewModel.getSession().collect {
-            if(it != null)
-            {
-                if(it)
-                {
-                    navController.navigate(Screens.MainScreen.route)
-                }
-            }else{
-                val auth = FirebaseAuth.getInstance()
-                val value = auth.currentUser == null
-                if(value)  navController.navigate(Screens.LoginScreen.route)
-                else {
-                    navController.navigate(Screens.MainScreen.route)
-                    viewModel.saveSession(true)
-                }
-            }
+    LaunchedEffect(key1 = "1") {
+        val auth = FirebaseAuth.getInstance()
+        val value = auth.currentUser == null
+        if (value) navController.navigate(Screens.LoginScreen.route)
+        else {
+            navController.navigate(Screens.MainScreen.route)
         }
     }
-
 
 
 }
@@ -53,8 +40,11 @@ fun ContentSplashScreen() {
         contentAlignment = Alignment.Center
     )
     {
-        Image(painter = painterResource(id = R.drawable.firebase_logo), contentDescription = stringResource(
-            id = R.string.firebase_logo
-        ))
+        Image(
+            painter = painterResource(id = R.drawable.firebase_logo),
+            contentDescription = stringResource(
+                id = R.string.firebase_logo
+            )
+        )
     }
 }

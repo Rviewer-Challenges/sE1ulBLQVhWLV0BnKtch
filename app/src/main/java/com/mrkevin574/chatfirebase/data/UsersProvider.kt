@@ -12,7 +12,7 @@ class UsersProvider @Inject constructor(
     private val db : FirebaseFirestore
 ) {
 
-    fun saveUser(user : User) = db.collection(USER_COLLECTION).document().set(user)
+    fun saveUser(user : User) = db.collection(USER_COLLECTION).document(user.uid).set(user)
 
     fun getAllUsers(userId : String, callback : (UsersResponse) -> Unit) {
         val userList = mutableListOf<User>()
