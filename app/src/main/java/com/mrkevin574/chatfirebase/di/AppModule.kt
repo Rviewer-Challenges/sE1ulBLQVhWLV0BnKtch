@@ -24,6 +24,7 @@ object AppModule {
     @Provides
     fun provideRealtimeDatabase() = Firebase.database.reference
 
+    @Singleton
     @Provides
     fun provideRoomDatabase(@ApplicationContext context : Context) = Room
         .databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
