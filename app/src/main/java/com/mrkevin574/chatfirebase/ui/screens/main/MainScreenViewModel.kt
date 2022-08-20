@@ -4,13 +4,17 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.mrkevin574.chatfirebase.data.UsersRepository
 import com.mrkevin574.chatfirebase.data.model.Message
 import com.mrkevin574.chatfirebase.data.model.PendingMessages
 import com.mrkevin574.chatfirebase.data.model.User
 import com.mrkevin574.chatfirebase.domain.GetTimeAgoUseCase
+import com.mrkevin574.chatfirebase.ui.screens.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,7 +38,6 @@ class MainScreenViewModel @Inject constructor(
                 )
             }
         }
-
     }
 
     private fun organizedUserList(userList: List<User>): List<User> {
@@ -53,10 +56,8 @@ class MainScreenViewModel @Inject constructor(
         if (messages.isEmpty() || currentUserId == null) return PendingMessages()
 
         val pendingMessages =
-            messages.filter { !it.viewed && it.ownerId !=  currentUserId}
+            messages.filter { !it.viewed && it.ownerId != currentUserId }
         val lastMessage = messages.last()
-
-
 
         return PendingMessages(
             lastMessage = lastMessage.value,
@@ -65,29 +66,11 @@ class MainScreenViewModel @Inject constructor(
         )
     }
 
-    fun deleteUsers()
-    {
+    fun signOut(navController: NavController) {
         viewModelScope.launch {
             repository.deleteAllUsersFromCache()
         }
+        navController.navigate(Screens.LoginScreen.route)
     }
 
 }
-
-
-
-
-// { response ->
-//            loading.value = false
-//            if(response.success)
-//            {
-//                _mainScreenState.value = mainScreenState.value.copy(
-//                    usersList = organizedUserList(response.userList),
-//                    stateChanged = !mainScreenState.value.stateChanged
-//                )
-//            }else{
-//                _mainScreenState.value = mainScreenState.value.copy(
-//                    success = false
-//                )
-//            }
-//        }
