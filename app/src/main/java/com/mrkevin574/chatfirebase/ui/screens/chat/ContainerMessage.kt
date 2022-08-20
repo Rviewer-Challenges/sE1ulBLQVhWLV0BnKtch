@@ -25,13 +25,10 @@ fun ContainerMessage(viewModel: ChatScreenViewModel, localUid: String, message: 
     val messageColor = if (message.ownerId == localUid){
         SecondaryColor
     } else {
-        if(!message.viewed){
-            onRead(message)
-        }
+        if(!message.viewed){ onRead(message) }
         PrimaryLightColor
     }
-    val alignmentMessage =
-        if (message.ownerId == localUid) Alignment.CenterEnd else Alignment.CenterStart
+    val alignmentMessage = if (message.ownerId == localUid) Alignment.CenterEnd else Alignment.CenterStart
     Box(
         modifier = Modifier
             .fillMaxWidth()

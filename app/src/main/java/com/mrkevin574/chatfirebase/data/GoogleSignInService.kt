@@ -40,7 +40,6 @@ class GoogleSignInService @Inject constructor(
                     Log.e(TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
                 }
             }
-
     }
 
     fun signInWithInFirebase(
@@ -55,10 +54,7 @@ class GoogleSignInService @Inject constructor(
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         usersRepository.saveUser(
-                            User(
-                                name = credential.displayName!!,
-                                uid = FirebaseAuth.getInstance().currentUser!!.uid
-                            )
+                            User(name = credential.displayName!!, uid = FirebaseAuth.getInstance().currentUser!!.uid)
                         )
                         onFinalized(true)
                     } else {

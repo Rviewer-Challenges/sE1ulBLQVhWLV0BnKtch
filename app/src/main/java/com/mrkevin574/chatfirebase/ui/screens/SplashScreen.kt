@@ -22,20 +22,15 @@ fun SplashScreen(
         val auth = FirebaseAuth.getInstance()
         val value = auth.currentUser == null
         if (value) navController.navigate(Screens.LoginScreen.route)
-        else {
-            navController.navigate(Screens.MainScreen.route)
-        }
+        else { navController.navigate(Screens.MainScreen.route) }
     }
-
-
 }
 
 @Composable
 fun ContentSplashScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    )
+        contentAlignment = Alignment.Center)
     {
         Image(
             painter = painterResource(id = R.drawable.firebase_logo),

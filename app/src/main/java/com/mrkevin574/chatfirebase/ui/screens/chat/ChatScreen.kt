@@ -30,8 +30,6 @@ fun ChatScreen(
 
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (header, messagesContainer, containerSendMessage) = createRefs()
-
-
         HeaderChat(name = nameReceiver, modifier = Modifier.constrainAs(header)
         {
             top.linkTo(parent.top)

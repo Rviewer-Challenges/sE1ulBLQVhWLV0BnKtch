@@ -15,21 +15,11 @@ import com.mrkevin574.chatfirebase.ui.screens.Screens
 @Composable
 fun ChatNavigation() {
     val navController = rememberNavController()
-
     NavHost(navController = navController, startDestination = Screens.SplashScreen.route )
     {
-        composable(Screens.SplashScreen.route)
-        {
-            SplashScreen(navController = navController)
-        }
-        composable(Screens.MainScreen.route)
-        {
-            MainScreen(navController = navController)
-        }
-        composable(Screens.LoginScreen.route)
-        {
-            LoginScreen(navController = navController)
-        }
+        composable(Screens.SplashScreen.route) { SplashScreen(navController = navController) }
+        composable(Screens.MainScreen.route) { MainScreen(navController = navController) }
+        composable(Screens.LoginScreen.route) { LoginScreen(navController = navController) }
         composable(Screens.ChatScreen.route)
         { backStackEntry ->
             backStackEntry.arguments?.let {

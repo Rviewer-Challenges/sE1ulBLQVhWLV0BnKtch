@@ -11,10 +11,8 @@ import javax.inject.Inject
 class MessageProvider @Inject constructor(
     private val database: DatabaseReference
 ) {
-
     private val TAG = "MessageProvider"
     private val CHILD_MESSAGES = "MESSAGES"
-
 
     fun getMessagesByIdForCurrentUser(
         localUserId: String,
@@ -59,14 +57,7 @@ class MessageProvider @Inject constructor(
         if (key.key != null) {
             message.key = key.key!!
             key.setValue(message)
-                .addOnSuccessListener {
-                    Log.w(TAG, "Messaged Send")
-                }.addOnFailureListener {
-                    Log.w(TAG, "Failed")
-                }
         }
-
-
     }
 
     private fun getUniqueIdConversation(userId1: String, userId2: String): String {

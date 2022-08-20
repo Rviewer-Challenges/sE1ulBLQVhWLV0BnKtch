@@ -18,7 +18,6 @@ fun MainScreen(
     viewModel: MainScreenViewModel = hiltViewModel()
 ) {
     val mainScreenState = viewModel.mainScreenState.value
-
     if (!mainScreenState.success) {
         Loading()
     } else if (mainScreenState.success) {
@@ -30,15 +29,9 @@ fun MainScreen(
 
 @Composable
 fun ContainerMainScreen(navController : NavController, userList: List<User>, viewModel: MainScreenViewModel, onClick: (Pair<String, String>) -> Unit) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    )
+    Box(modifier = Modifier.fillMaxSize())
     {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 10.dp)
-        )
+        Column(modifier = Modifier.fillMaxSize().padding(top = 10.dp))
         {
             userList.forEach { user ->
                 CardUser(user = user, viewModel, onClick = {onClick(Pair(user.uid, user.name))})
@@ -52,7 +45,6 @@ fun ContainerMainScreen(navController : NavController, userList: List<User>, vie
             viewModel.signOut(navController)
         }
     }
-
 }
 
 @Composable
@@ -63,12 +55,9 @@ fun Loading() {
     )
     {
         CircularProgressIndicator(
-            modifier = Modifier
-                .width(200.dp)
-                .height(200.dp),
+            modifier = Modifier.width(200.dp).height(200.dp),
             strokeWidth = 10.dp,
             color = PrimaryColor
         )
     }
-
 }

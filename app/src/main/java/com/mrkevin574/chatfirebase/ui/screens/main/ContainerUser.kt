@@ -38,17 +38,13 @@ fun CardUser(
     val pendingMessages = viewModel!!.getLastMessageAndPendingMessages(user.messages)
     val countPendingMessages = pendingMessages.countPending
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(90.dp)
+        modifier = Modifier.fillMaxWidth().height(90.dp)
             .clickable { onClick(user.uid) },
         verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 25.dp),
+            modifier = Modifier.fillMaxWidth().padding(top = 25.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
