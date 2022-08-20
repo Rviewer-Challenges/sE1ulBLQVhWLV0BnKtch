@@ -25,10 +25,7 @@ fun MainScreen(
         ContainerMainScreen(navController = navController, mainScreenState.usersList, viewModel) {
             navController.navigate(Screens.ChatScreen.passIdAndName(it.first, it.second))
         }
-    } else {
-        ContainerErrorMainScreen()
     }
-
 }
 
 @Composable
@@ -73,10 +70,5 @@ fun Loading() {
             color = PrimaryColor
         )
     }
-
-}
-
-@Composable
-fun ContainerErrorMainScreen() {
 
 }
