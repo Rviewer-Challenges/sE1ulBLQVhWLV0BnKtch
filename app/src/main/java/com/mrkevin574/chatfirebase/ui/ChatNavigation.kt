@@ -39,7 +39,6 @@ fun ChatNavigation() {
                 {
                     ChatScreen(navController = navController, receiverId = uid, nameReceiver = name)
                 }
-
             }
         }
     }

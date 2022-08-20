@@ -50,9 +50,11 @@ class MainScreenViewModel @Inject constructor(
 
 
     fun getLastMessageAndPendingMessages(messages: List<Message>): PendingMessages {
-        if (messages.isEmpty()) return PendingMessages()
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+        if (messages.isEmpty() || currentUserId == null) return PendingMessages()
+
         val pendingMessages =
-            messages.filter { !it.viewed && it.ownerId != FirebaseAuth.getInstance().currentUser!!.uid }
+            messages.filter { !it.viewed && it.ownerId !=  currentUserId}
         val lastMessage = messages.last()
 
 
