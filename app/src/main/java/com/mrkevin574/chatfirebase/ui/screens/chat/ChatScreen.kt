@@ -42,7 +42,10 @@ fun ChatScreen(
             navController.popBackStack()
             navController.navigate(Screens.MainScreen.route)
         }
-        ColumnMessages(localUid = viewModel.getUserId(), messages = messages,
+        ColumnMessages(
+            viewModel = viewModel,
+            localUid = viewModel.getUserId(),
+            messages = messages,
             modifier = Modifier.constrainAs(messagesContainer)
             {
                 top.linkTo(header.bottom)
@@ -67,6 +70,7 @@ fun ChatScreen(
 
 @Composable
 fun ColumnMessages(
+    viewModel: ChatScreenViewModel,
     localUid: String,
     messages: List<Message>,
     modifier: Modifier,
@@ -82,7 +86,7 @@ fun ColumnMessages(
     ) {
         messages.forEach {
             item {
-                ContainerMessage(localUid = localUid, message = it, onRead = onRead)
+                ContainerMessage(viewModel = viewModel, localUid = localUid, message = it, onRead = onRead)
             }
         }
         if(messages.isNotEmpty())

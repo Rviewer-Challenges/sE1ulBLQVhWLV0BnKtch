@@ -9,6 +9,7 @@ import com.mrkevin574.chatfirebase.data.MessageProvider
 import com.mrkevin574.chatfirebase.data.local.LocalService
 import com.mrkevin574.chatfirebase.data.local.convertMessagesJsonToObject
 import com.mrkevin574.chatfirebase.data.model.Message
+import com.mrkevin574.chatfirebase.domain.GetTimeAgoUseCase
 import com.mrkevin574.chatfirebase.ui.screens.main.MainScreenViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatScreenViewModel @Inject constructor(
     private val provider: MessageProvider,
-    private val localService: LocalService
+    private val localService: LocalService,
+    private val getTimeAgoUseCase: GetTimeAgoUseCase
 ) : ViewModel() {
 
     val messages = mutableStateOf(emptyList<Message>())
@@ -52,5 +54,7 @@ class ChatScreenViewModel @Inject constructor(
     {
         provider.makeMessagesRead(getUserId(), userReceiverId = userReceiverId, message)
     }
+
+    fun getTimeAgo(timeAgo : Long) = getTimeAgoUseCase(timeAgo)
 
 }

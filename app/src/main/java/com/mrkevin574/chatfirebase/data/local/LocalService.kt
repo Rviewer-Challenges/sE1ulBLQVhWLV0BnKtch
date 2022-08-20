@@ -9,14 +9,15 @@ import javax.inject.Inject
 class LocalService @Inject constructor(
     private val dao : UserDao
 ) {
-    fun getAllUsers() : Flow<List<User>> = dao.getAll().map { users ->
+    fun getAllUsers(): Flow<List<User>> = dao.getAll().map { users ->
         users.map { it.toDomain() }
     }
 
-    suspend fun saveOrUpdateUser(user : User)
-    {
-       dao.saveUser(user.toEntity())
+    suspend fun saveOrUpdateUser(user: User) {
+        dao.saveUser(user.toEntity())
     }
 
-    fun getMessagesById(userId : String) = dao.getMessagesById(userId = userId)
+    fun getMessagesById(userId: String) = dao.getMessagesById(userId = userId)
+
+    suspend fun deleteAllUsers() = dao.deleteAll()
 }

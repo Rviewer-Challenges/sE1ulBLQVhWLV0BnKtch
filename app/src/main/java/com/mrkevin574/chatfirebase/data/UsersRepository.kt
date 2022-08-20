@@ -35,4 +35,6 @@ class UsersRepository @Inject constructor(
 
     fun getListOfUsers() = localService.getAllUsers()
 
+    suspend fun deleteAllUsersFromCache() = localService.deleteAllUsers()
+
 }

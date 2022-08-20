@@ -9,6 +9,7 @@ import com.mrkevin574.chatfirebase.data.UsersRepository
 import com.mrkevin574.chatfirebase.data.model.Message
 import com.mrkevin574.chatfirebase.data.model.PendingMessages
 import com.mrkevin574.chatfirebase.data.model.User
+import com.mrkevin574.chatfirebase.domain.GetTimeAgoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
@@ -16,13 +17,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
-    repository: UsersRepository
+    private val repository: UsersRepository,
+    private val getTimeAgoUseCase: GetTimeAgoUseCase
 ) : ViewModel() {
 
     private val _mainScreenState = mutableStateOf(MainScreenState())
     val mainScreenState: State<MainScreenState> = _mainScreenState
-
-    val loading = mutableStateOf(true)
 
     init {
         viewModelScope.launch {
@@ -61,20 +61,21 @@ class MainScreenViewModel @Inject constructor(
 
         return PendingMessages(
             lastMessage = lastMessage.value,
-            hourLastMessage = getTimeAgo(lastMessage.hour),
+            hourLastMessage = getTimeAgoUseCase(lastMessage.hour),
             countPending = pendingMessages.count()
         )
     }
 
+    fun deleteUsers()
+    {
+        viewModelScope.launch {
+            repository.deleteAllUsersFromCache()
+        }
+    }
+
 }
 
-fun getTimeAgo(time: Long): String {
-    val timeAgo = (Date().time - time) / 1000
-    return if (timeAgo < 60) return "now"
-    else if (timeAgo in 61..3599) return "${timeAgo / 60} mins"
-    else if (timeAgo in 3600..86399) return "${(timeAgo / 60) / 60} hours"
-    else "${((timeAgo / 60) / 60) / 60} days"
-}
+
 
 
 // { response ->

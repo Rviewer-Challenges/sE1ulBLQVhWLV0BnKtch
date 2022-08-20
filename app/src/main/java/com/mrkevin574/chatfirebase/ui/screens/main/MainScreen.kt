@@ -53,6 +53,7 @@ fun ContainerMainScreen(navController : NavController, userList: List<User>, vie
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 20.dp, end = 10.dp)
         ) {
+            viewModel.deleteUsers()
             navController.navigate(Screens.LoginScreen.route)
         }
     }

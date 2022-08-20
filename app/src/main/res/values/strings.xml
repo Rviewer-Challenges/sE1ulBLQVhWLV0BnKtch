@@ -8,4 +8,8 @@
     <string name="sign_out_message">Are you sure you want to log out?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="now">now</string>
+    <string name="mins">mins</string>
+    <string name="hours">hours</string>
+    <string name="days">days</string>
 </resources>

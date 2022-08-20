@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,14 +16,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mrkevin574.chatfirebase.data.model.Message
-import com.mrkevin574.chatfirebase.ui.screens.main.getTimeAgo
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryLightColor
 import com.mrkevin574.chatfirebase.ui.theme.SecondaryColor
 import com.mrkevin574.chatfirebase.ui.theme.TextColorLastMessage
 import java.util.*
 
 @Composable
-fun ContainerMessage(localUid: String, message: Message, onRead: (Message) -> Unit) {
+fun ContainerMessage(viewModel: ChatScreenViewModel, localUid: String, message: Message, onRead: (Message) -> Unit) {
     val messageColor = if (message.ownerId == localUid){
         SecondaryColor
     } else {
@@ -55,7 +53,7 @@ fun ContainerMessage(localUid: String, message: Message, onRead: (Message) -> Un
                     .padding(top = 10.dp, end = 20.dp, start = 20.dp, bottom = 2.dp)
             )
             Text(
-                text = getTimeAgo(message.hour),
+                text = viewModel.getTimeAgo(message.hour),
                 fontSize = 12.sp,
                 textAlign = TextAlign.End,
                 color = TextColorLastMessage,
