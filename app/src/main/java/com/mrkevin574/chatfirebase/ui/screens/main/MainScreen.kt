@@ -3,6 +3,7 @@ package com.mrkevin574.chatfirebase.ui.screens.main
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -18,12 +19,11 @@ fun MainScreen(
     viewModel: MainScreenViewModel = hiltViewModel()
 ) {
     val mainScreenState = viewModel.mainScreenState.value
-    val loading = viewModel.loading.value
 
     if (!mainScreenState.success) {
         Loading()
     } else if (mainScreenState.success) {
-        ContainerMainScreen(mainScreenState.usersList, viewModel) {
+        ContainerMainScreen(navController = navController, mainScreenState.usersList, viewModel) {
             navController.navigate(Screens.ChatScreen.passIdAndName(it.first, it.second))
         }
     } else {
@@ -33,17 +33,30 @@ fun MainScreen(
 }
 
 @Composable
-fun ContainerMainScreen(userList: List<User>, viewModel: MainScreenViewModel, onClick: (Pair<String, String>) -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 10.dp)
+fun ContainerMainScreen(navController : NavController, userList: List<User>, viewModel: MainScreenViewModel, onClick: (Pair<String, String>) -> Unit) {
+    Box(
+        modifier = Modifier.fillMaxSize()
     )
     {
-        userList.forEach { user ->
-            CardUser(user = user, viewModel, onClick = {onClick(Pair(user.uid, user.name))})
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 10.dp)
+        )
+        {
+            userList.forEach { user ->
+                CardUser(user = user, viewModel, onClick = {onClick(Pair(user.uid, user.name))})
+            }
+        }
+        ButtonSignOut(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 20.dp, end = 10.dp)
+        ) {
+            navController.navigate(Screens.LoginScreen.route)
         }
     }
+
 
 }
 

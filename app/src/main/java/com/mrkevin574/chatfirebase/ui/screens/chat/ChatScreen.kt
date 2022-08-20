@@ -56,8 +56,11 @@ fun ChatScreen(
             {
                 bottom.linkTo(parent.bottom)
             }) {
-            viewModel.sendMessage(value = text.value, receiverId = receiverId)
-            text.value = ""
+            if(text.value.isNotEmpty())
+            {
+                viewModel.sendMessage(value = text.value, receiverId = receiverId)
+                text.value = ""
+            }
         }
     }
 }
