@@ -20,7 +20,7 @@ fun MainScreen(
     val mainScreenState = viewModel.mainScreenState.value
     val loading = viewModel.loading.value
 
-    if (loading) {
+    if (!mainScreenState.success) {
         Loading()
     } else if (mainScreenState.success) {
         ContainerMainScreen(mainScreenState.usersList, viewModel) {

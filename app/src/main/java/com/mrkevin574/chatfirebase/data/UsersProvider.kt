@@ -2,10 +2,12 @@ package com.mrkevin574.chatfirebase.data
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import com.mrkevin574.chatfirebase.data.local.UserDao
 import com.mrkevin574.chatfirebase.data.model.User
 import com.mrkevin574.chatfirebase.data.model.UsersResponse
 import com.mrkevin574.chatfirebase.util.FIELD_UID
 import com.mrkevin574.chatfirebase.util.USER_COLLECTION
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class UsersProvider @Inject constructor(
