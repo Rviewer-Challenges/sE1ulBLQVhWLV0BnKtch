@@ -1,10 +1,8 @@
 package com.mrkevin574.chatfirebase.data
 
-import android.content.Context
 import android.util.Log
 import com.google.firebase.database.*
 import com.mrkevin574.chatfirebase.data.model.Message
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
