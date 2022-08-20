@@ -19,7 +19,6 @@ import com.mrkevin574.chatfirebase.data.model.Message
 import com.mrkevin574.chatfirebase.ui.theme.PrimaryLightColor
 import com.mrkevin574.chatfirebase.ui.theme.SecondaryColor
 import com.mrkevin574.chatfirebase.ui.theme.TextColorLastMessage
-import java.util.*
 
 @Composable
 fun ContainerMessage(viewModel: ChatScreenViewModel, localUid: String, message: Message, onRead: (Message) -> Unit) {

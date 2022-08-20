@@ -1,6 +1,5 @@
 package com.mrkevin574.chatfirebase.data.local
 
-import com.mrkevin574.chatfirebase.data.model.Message
 import com.mrkevin574.chatfirebase.data.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

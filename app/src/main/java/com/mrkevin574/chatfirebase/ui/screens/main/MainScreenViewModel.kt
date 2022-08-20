@@ -12,7 +12,6 @@ import com.mrkevin574.chatfirebase.data.model.User
 import com.mrkevin574.chatfirebase.domain.GetTimeAgoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel

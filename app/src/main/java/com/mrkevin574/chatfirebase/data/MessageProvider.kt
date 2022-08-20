@@ -8,18 +8,15 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MessageProvider @Inject constructor(
-    @ApplicationContext private val context : Context,
     private val database: DatabaseReference
 ) {
 
     private val TAG = "MessageProvider"
     private val CHILD_MESSAGES = "MESSAGES"
 
-    //block: suspend CoroutineScope.() -> Unit
 
     fun getMessagesByIdForCurrentUser(
         localUserId: String,
@@ -41,7 +38,7 @@ class MessageProvider @Inject constructor(
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.w(TAG, error.message)
             }
 
         })

@@ -3,7 +3,6 @@ package com.mrkevin574.chatfirebase.ui.screens.chat
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,7 +14,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mrkevin574.chatfirebase.data.model.Message
 import com.mrkevin574.chatfirebase.ui.screens.Screens
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 

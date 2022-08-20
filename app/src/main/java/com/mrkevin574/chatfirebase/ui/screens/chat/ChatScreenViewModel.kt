@@ -1,7 +1,6 @@
 package com.mrkevin574.chatfirebase.ui.screens.chat
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
@@ -10,7 +9,6 @@ import com.mrkevin574.chatfirebase.data.local.LocalService
 import com.mrkevin574.chatfirebase.data.local.convertMessagesJsonToObject
 import com.mrkevin574.chatfirebase.data.model.Message
 import com.mrkevin574.chatfirebase.domain.GetTimeAgoUseCase
-import com.mrkevin574.chatfirebase.ui.screens.main.MainScreenViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
