@@ -22,7 +22,7 @@ class UsersRepository @Inject constructor(
         if(currentUser != null)
         {
             userProvider.getAllUsers(currentUser.uid) { userResponse ->
-                userResponse.userList.map { user ->
+                userResponse.userList.forEach { user ->
                     messageProvider.getMessagesByIdForCurrentUser(user.uid, currentUser.uid){ messages ->
                         user.messages = messages
                         localService.saveOrUpdateUser(user)

@@ -62,7 +62,7 @@ class MessageProvider @Inject constructor(
 
     private fun getUniqueIdConversation(userId1: String, userId2: String): String {
         val usersIdList = listOf(userId1, userId2).sorted()
-        return "${usersIdList[0]}_${usersIdList[0]}"
+        return "${usersIdList[0]}_${usersIdList[1]}"
     }
 
 }
