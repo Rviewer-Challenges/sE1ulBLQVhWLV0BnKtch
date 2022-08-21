@@ -1,5 +1,6 @@
 package com.mrkevin574.chatfirebase.data.local
 
+import com.google.firebase.auth.FirebaseAuth
 import com.mrkevin574.chatfirebase.data.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,7 +14,12 @@ class LocalService @Inject constructor(
     }
 
     suspend fun saveOrUpdateUser(user: User) {
-        dao.saveUser(user.toEntity())
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        uid?.let {
+            if(user.uid != it)
+                dao.saveUser(user.toEntity())
+        }
+
     }
 
     fun getMessagesById(userId: String) = dao.getMessagesById(userId = userId)
