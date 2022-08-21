@@ -20,9 +20,16 @@ fun SplashScreen(
     ContentSplashScreen()
     LaunchedEffect(key1 = "1") {
         val auth = FirebaseAuth.getInstance()
-        val value = auth.currentUser == null
-        if (value) navController.navigate(Screens.LoginScreen.route)
-        else { navController.navigate(Screens.MainScreen.route) }
+        val route = if(auth.currentUser == null){
+            Screens.LoginScreen.route
+        } else {
+            Screens.MainScreen.route
+        }
+        navController.navigate(route){
+            popUpTo(Screens.SplashScreen.route, popUpToBuilder = {
+                this.inclusive = true
+            })
+        }
     }
 }
 

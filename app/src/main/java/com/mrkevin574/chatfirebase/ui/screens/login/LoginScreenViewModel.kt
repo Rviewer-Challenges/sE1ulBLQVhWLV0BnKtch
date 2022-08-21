@@ -20,7 +20,13 @@ class LoginScreenViewModel @Inject constructor(
     {
         result.data?.let { intent ->
             service.signInWithInFirebase(intent){ resp ->
-                if(resp) navController.navigate(Screens.MainScreen.route)
+                if(resp) {
+                    navController.navigate(Screens.MainScreen.route){
+                        popUpTo(Screens.LoginScreen.route, popUpToBuilder = {
+                            this.inclusive = true
+                        })
+                    }
+                }
             }
         }
     }
