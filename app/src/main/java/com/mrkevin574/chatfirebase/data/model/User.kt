@@ -13,4 +13,12 @@ data class User(val name : String = "",val uid : String = "",var messages : List
             messages = Gson().toJson(messages)
         )
     }
+
+    fun toFirestore() : UserFirestore{
+        return UserFirestore(
+            name = name,
+            uid = uid
+        )
+    }
+
 }
