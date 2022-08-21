@@ -13,8 +13,6 @@ import com.mrkevin574.chatfirebase.data.model.User
 import com.mrkevin574.chatfirebase.domain.GetTimeAgoUseCase
 import com.mrkevin574.chatfirebase.ui.screens.Screens
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -72,5 +70,4 @@ class MainScreenViewModel @Inject constructor(
         }
         navController.navigate(Screens.LoginScreen.route)
     }
-
 }
