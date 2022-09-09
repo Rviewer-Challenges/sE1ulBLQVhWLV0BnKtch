@@ -39,6 +39,8 @@ class GoogleSignInService @Inject constructor(
                 } catch (e: IntentSender.SendIntentException) {
                     Log.e(TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
                 }
+            }.addOnFailureListener {
+                Log.e(TAG, it.message ?: "$it")
             }
     }
 
